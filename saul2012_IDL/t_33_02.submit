@@ -1,0 +1,12 @@
+universe = vanilla
+notification = Always
++AccountingGroup = "group_astro"
+executable= /usr/local/bin/idl
+environment ="IDL_STARTUP=/hpc/scratch/astro/users/jmg2223/gsr2.6/start_ao.idl.pro GALFAPATH=/hpc/scratch/astro/users/jmg2223/gsr2.6/ CARLPATH=/hpc/scratch/astro/users/jmg2223/gsr2.6/carlpath/ GSRPATH=/hpc/scratch/astro/users/jmg2223/gsr2.6/ TREETOP=/hpc/scratch/astro/users/jmg2223/ PHILTOP=/hpc/scratch/astro/users/jmg2223/ PHILPATH=/share/galfa/gsr2.6/phil/"
+initialdir = /hpc/30days/astro/users/drs2125/checkrun/
+input=t_33_02.idl
+output =t_33_02.out
+error =t_33_02.err
+log =t_33_02.log
+requirements = BigMem == TRUE
+queue
