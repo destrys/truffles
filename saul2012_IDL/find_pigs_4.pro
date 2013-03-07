@@ -51,16 +51,6 @@ nx=41
 ra=ra[nx/2:sz[1]-nx/2-1,nx/2:sz[2]-nx/2-1]
 dec=dec[nx/2:sz[1]-nx/2-1,nx/2:sz[2]-nx/2-1]
 
-
-
-
-
-
-
-
-
-
-
 sz = size(rmask)
 extendo=byte(rmask*0)
 q=0
@@ -73,10 +63,6 @@ endif else begin
 dx=38
 dy=38
 endelse
-
-
-
-
 
 if i NE 0 then restore,rmasks[i],/verb
 restore,cvs[i],/verb
@@ -238,10 +224,6 @@ nx=41
 sz=size(fits)
 fits=temporary(fits[nx/2:sz[1]-nx/2-1,nx/2:sz[2]-nx/2-1,*])
 sz=size(fits)
-
-
-
-
 
 for i=0, 3 do begin
 

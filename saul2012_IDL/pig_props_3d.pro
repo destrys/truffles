@@ -38,11 +38,6 @@ ra=ra[nx/2:sz[1]-nx/2-1,nx/2:sz[2]-nx/2-1]
 dec=dec[nx/2:sz[1]-nx/2-1,nx/2:sz[2]-nx/2-1]
 fits=fits[nx/2:sz[1]-nx/2-1,nx/2:sz[2]-nx/2-1,*]
 
-
-
-
-
-
 sz = size(fits)
 
        pssize = 15

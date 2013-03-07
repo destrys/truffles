@@ -6,8 +6,6 @@ pro cv_all_2d,dataf=dataf,fwhm=fwhm,v_fwhm=v_fwhm,cv=cv,outfile=outfile,fits=fit
 ; This is step one in the code to look for 'pigs' in the GALFA-HI
 ; data set, by convolving a reduced velocity range cube with 
 ; a matched filter function
-; It also allows the injection of 'fake' pigs with the injector
-; function
 ;
 ; This is the 2D version.
 ;
@@ -37,8 +35,6 @@ pro cv_all_2d,dataf=dataf,fwhm=fwhm,v_fwhm=v_fwhm,cv=cv,outfile=outfile,fits=fit
 ;
 ;
 ; CALLS:
-;        GROMASK (gsr)
-;        EXTRACT_COORDS (gsr)
 ;        WTFIND (truffles)
 ;
 ; CALLED BY:

@@ -63,7 +63,6 @@ endelse
 		grow=0
 	endelse
 endwhile
-
 	cv[qmask] = 0
 	rmask[qmask]=q
 	mx = max(cv,xx,/nan)
