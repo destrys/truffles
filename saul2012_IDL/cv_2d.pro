@@ -1,6 +1,6 @@
-pro cv_all_2d,dataf=dataf,fwhm=fwhm,v_fwhm=v_fwhm,cv=cv,outfile=outfile,fits=fits,chin=chin,noisescale=noisescale,wtout=wtout,_extra=_extra
+pro cv_2d,dataf=dataf,fwhm=fwhm,v_fwhm=v_fwhm,cv=cv,outfile=outfile,fits=fits,chin=chin,noisescale=noisescale,wtout=wtout,_extra=_extra
 ;+
-; NAME: CV_ALL_2D
+; NAME: CV_2D
 ;
 ; PURPOSE:
 ; This is step one in the code to look for 'pigs' in the GALFA-HI

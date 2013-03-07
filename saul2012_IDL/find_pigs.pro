@@ -1,6 +1,6 @@
 ; Go look for all the rmask regions that are small in ra/dec/vel space
 ; as save them into a structure called pig_sp
-function find_pigs_4, datacoords=datacoords,spout=spout,dataf=dataf,cvs=cvs,rmasks=rmasks,keepedges=keepedges
+function find_pigs, datacoords=datacoords,spout=spout,dataf=dataf,cvs=cvs,rmasks=rmasks,keepedges=keepedges
 ;+
 ;NAME: 
 ;     FIND_PIGS

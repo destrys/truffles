@@ -1,4 +1,4 @@
-pro find_reg_newest,rmask=rmask,minpeak=minpeak,water=water,datacv=datacv,outfile=outfile
+pro find_reg,rmask=rmask,minpeak=minpeak,water=water,datacv=datacv,outfile=outfile
 
 ;This is step 2 in the pig-searching code suite
 ;

@@ -1,4 +1,4 @@
-pro truffles_check,datacube=datacube,outstring=outstring,chin=chin,keepedges=keepedges
+pro truffles,datacube=datacube,outstring=outstring,chin=chin,keepedges=keepedges
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -52,10 +52,7 @@ dec=float(dec)
 vels=float(vels)
 save,ra,dec,vels,f=datafdir+datacoords
 
-
 save,fits,f=datafdir+dataf
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;; Spore Does Galactic Subtraction ;;;;;;;;;;;;;;;;;;
@@ -68,130 +65,101 @@ tm=systime(/sec)
 spore,fits,chin=chin,ra=ra,dec=dec,vels=vels,outfile=sporedir+sporeout
 print, (systime(/sec)-tm)/60., 'SPORE runtime (minutes)'
 
-
 endif
 
 fits=0b
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;; CV_ALL_2D Convolves the Cubes ;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;; CV_2D Convolves the Cubes ;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if (file_exists(top + sporedir + sporeout) eq 1 and file_exists(top + cv + cvs[0]) eq 0) then begin
-
-tm=systime(/sec)
-cv_all_2d,chin=chin,fwhm=7,v_fwhm=5,dataf=sporedir+sporeout,outfile=cv+cvs[0],wtout=cv+wts[0],noisescale=0.25
-print, (systime(/sec)-tm)/60., 'CV_ALL runtime (minutes)'
-
+    tm=systime(/sec)
+    cv_2d,chin=chin,fwhm=7,v_fwhm=5,dataf=sporedir+sporeout,$
+        outfile=cv+cvs[0],wtout=cv+wts[0],noisescale=0.25
+    print, (systime(/sec)-tm)/60., 'CV_2D runtime (minutes)'
 endif
-
-
 
 if (file_exists(top + sporedir + sporeout) eq 1 and file_exists(top + cv + cvs[1]) eq 0) then begin
-
-
-tm=systime(/sec)
-cv_all_2d,chin=chin,fwhm=18,v_fwhm=5,dataf=sporedir+sporeout,outfile=cv+cvs[1],wtout=cv+wts[1],noisescale=0.2
-print, (systime(/sec)-tm)/60., 'CV_ALL runtime (minutes)'
-
-
+    tm=systime(/sec)
+    cv_2d,chin=chin,fwhm=18,v_fwhm=5,dataf=sporedir+sporeout,$
+        outfile=cv+cvs[1],wtout=cv+wts[1],noisescale=0.2
+    print, (systime(/sec)-tm)/60., 'CV_2D runtime (minutes)'
 endif
-
 
 if (file_exists(top + sporedir + sporeout) eq 1 and file_exists(top + cv + cvs[2]) eq 0) then begin
-
-tm=systime(/sec)
-cv_all_2d,chin=chin,fwhm=7,v_fwhm=15,dataf=sporedir+sporeout,outfile=cv+cvs[2],wtout=cv+wts[2],noisescale=0.2
-print, (systime(/sec)-tm)/60., 'CV_ALL runtime (minutes)'
-
+    tm=systime(/sec)
+    cv_2d,chin=chin,fwhm=7,v_fwhm=15,dataf=sporedir+sporeout,$
+        outfile=cv+cvs[2],wtout=cv+wts[2],noisescale=0.2
+    print, (systime(/sec)-tm)/60., 'CV_2D runtime (minutes)'
 endif
-
 
 if (file_exists(top + sporedir + sporeout) eq 1 and file_exists(top + cv + cvs[3]) eq 0) then begin
+    tm=systime(/sec)
+    cv_2d,chin=chin,fwhm=18,v_fwhm=15,dataf=sporedir+sporeout,$
+        outfile=cv+cvs[3],wtout=cv+wts[3],noisescale=1./7.
+    print, (systime(/sec)-tm)/60., 'CV_2D runtime (minutes)'
+ endif
 
-tm=systime(/sec)
-cv_all_2d,chin=chin,fwhm=18,v_fwhm=15,dataf=sporedir+sporeout,outfile=cv+cvs[3],wtout=cv+wts[3],noisescale=1./7.
-print, (systime(/sec)-tm)/60., 'CV_ALL runtime (minutes)'
-
-
-endif
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; FIND_REG ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 if (file_exists(top + cv + cvs[0]) eq 1 and file_exists(top + rmask + rmasks[0]) eq 0) then begin
-
-tm=systime(/sec)
-find_reg_newest, datacv=cv+cvs[0],outfile=rmask+rmasks[0]
-print, (systime(/sec)-tm)/60., 'Find_reg runtime (minutes)'
-
+    tm=systime(/sec)
+    find_reg, datacv=cv+cvs[0],outfile=rmask+rmasks[0]
+    print, (systime(/sec)-tm)/60., 'Find_reg runtime (minutes)'
 endif
 
 
 if (file_exists(top + cv + cvs[1]) eq 1 and file_exists(top + rmask + rmasks[1]) eq 0) then begin
-
-tm=systime(/sec)
-find_reg_newest, datacv=cv+cvs[1],outfile=rmask+rmasks[1]
-print, (systime(/sec)-tm)/60., 'Find_reg runtime (minutes)'
-
+    tm=systime(/sec)
+    find_reg, datacv=cv+cvs[1],outfile=rmask+rmasks[1]
+    print, (systime(/sec)-tm)/60., 'Find_reg runtime (minutes)'
 endif
 
 
 if (file_exists(top + cv + cvs[2]) eq 1 and file_exists(top + rmask + rmasks[2]) eq 0) then begin
-
-tm=systime(/sec)
-find_reg_newest, datacv=cv+cvs[2],outfile=rmask+rmasks[2]
-print, (systime(/sec)-tm)/60., 'Find_reg runtime (minutes)'
-
+    tm=systime(/sec)
+    find_reg, datacv=cv+cvs[2],outfile=rmask+rmasks[2]
+    print, (systime(/sec)-tm)/60., 'Find_reg runtime (minutes)'
 endif
 
 
 if (file_exists(top + cv + cvs[3]) eq 1 and file_exists(top + rmask + rmasks[3]) eq 0) then begin
-
-tm=systime(/sec)
-find_reg_newest, datacv=cv+cvs[3],outfile=rmask+rmasks[3]
-print, (systime(/sec)-tm)/60., 'Find_reg runtime (minutes)'
-
+    tm=systime(/sec)
+    find_reg, datacv=cv+cvs[3],outfile=rmask+rmasks[3]
+    print, (systime(/sec)-tm)/60., 'Find_reg runtime (minutes)'
 endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;; FIND_PIGS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if (file_exists(top + rmask + rmasks[0]) eq 1 and file_exists(top + pigspout + spout) eq 0) then begin
-
-tm=systime(/sec)
-np=find_pigs_4(spout=pigspout+spout,cvs=cv+cvs,rmasks=rmask+rmasks,dataf=datafdir+dataf,datacoords=datafdir+datacoords)
-print,(systime(/sec)-tm)/60.,'FindPigs_4 Runtime (minutes)'
-
+    tm=systime(/sec)
+    np=find_pigs(spout=pigspout+spout,cvs=cv+cvs,rmasks=rmask+rmasks,$
+        dataf=datafdir+dataf,datacoords=datafdir+datacoords)
+    print,(systime(/sec)-tm)/60.,'Find_Pigs Runtime (minutes)'
 endif
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;; PIG_PROPS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if (file_exists(top + pigspout +spout) eq 1 and file_exists(top + pigfit + pigfitout) eq 0) then begin
-
-
-pig_props_3d,outstring,readdir='/hpc/30days/astro/users/drs2125/checkrun/',pigspout=pigspout,rmask=rmask,sporedir=sporedir,datafdir=datafdir,writedir=pigfit
-
-
-
-print,'finished pig fits'
+    pig_props,outstring,readdir='/hpc/30days/astro/users/drs2125/checkrun/',$
+        pigspout=pigspout,rmask=rmask,sporedir=sporedir,datafdir=datafdir,writedir=pigfit
+    print,'finished pig fits'
 endif
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;if (file_exists(top + pigfit +pigfitout) eq 1 and file_exists(top + pigplots +pigplotout) eq 0) then begin
-
-
-
 ;plot_pig_prosps_3D,outstring,0,pigplots,'/hpc/30days/astro/users/drs2125/checkrun/',pigspout=pigspout,rmask=rmask,sporedir=sporedir,datafdir=datafdir,pigfit=pigfit
-
-
-
-
-
 ;print,'finished pigplots'
 ;endif
 

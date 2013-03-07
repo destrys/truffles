@@ -1,4 +1,4 @@
-pro pig_props_3d, outstring, writedir=writedir,readdir=readdir,datafdir=datafdir,pigspout=pigspout,sporedir=sporedir,rmask=rmask
+pro pig_props, outstring, writedir=writedir,readdir=readdir,datafdir=datafdir,pigspout=pigspout,sporedir=sporedir,rmask=rmask
 
 ; step 4 in the pig-searching code. This determines the properties
 ; of the pigs, using the mpfit_2dgauss code and mpfit.
