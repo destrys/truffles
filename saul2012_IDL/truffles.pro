@@ -31,7 +31,9 @@ wts=['wt'+outstring+'_7.5.sav',$
 'wt'+outstring+'_18.5.sav',$
 'wt'+outstring+'_18.15.sav']
 
-top = '/hpc/30days/astro/users/drs2125/checkrun/'
+;top = ''
+pwd,top
+top+='/'
 datafdir= 'dataf/'
 sporedir = 'spore/'
 cv = 'cv/'
@@ -50,7 +52,7 @@ extract_coords,datastring,ra,dec,vels,fits
 ra=float(ra)
 dec=float(dec)
 vels=float(vels)
-save,ra,dec,vels,f=datafdir+datacoords
+save,ra,dec,vels,f=top+datafdir+datacoords
 
 save,fits,f=datafdir+dataf
 
