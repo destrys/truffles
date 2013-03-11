@@ -1,24 +1,53 @@
-function wax_off,cv,verb=verb
+function wax_off,cv,coinsize,verbose=verbose
+;+
+; FUNCTION: WAX_OFF
+;
+; PURPOSE: Apply median smooth to a 3D datacube
+;
+; SYNTAX: cube = wax_off(cube,coinsize[,/verbose])
+;
+; CALLED BY: SPORE
+;
+; NOTES:
+;   For a 512 x 512 x ? array, each slice takes
+;   ~7 seconds on a Macbook Pro 2.66 GHz i7
+;   For a GALFA cube (512x512x2048) that's 4hr.
+;
+; HISTORY:
+;    Created by Destry in 2010
+;    Cleaned and sped up - 3.11.2013 - Destry
+;-
 
+;Init
 sz=size(cv)
-coinsize=60
+halfCoin=coinsize/2
+
+
+if keyword_set(verbose) then begin
+print,'WAX_OFF Starting'
+print,systime()
+lasttm=systime(/sec)
 help,/mem
 help
-wax=cv*0
-for i=0,sz[3]-1 do begin
-	if keyword_set(verb) then print,'slice ',i
-	wax[*,*,i]=median(cv[*,*,i],coinsize)
-left=rebin(wax[coinsize/2,*,i],coinsize/2,sz[2])
-right=rebin(wax[sz[1]-coinsize/2-1,*,i],coinsize/2,sz[2])
-wax[0:coinsize/2-1,*,i]=left
-wax[sz[1]-coinsize/2:sz[1]-1,*,i]=right
-bottom=rebin(wax[*,coinsize/2,i],sz[1],coinsize/2)
-top=rebin(wax[*,sz[2]-coinsize/2-1,i],sz[1],coinsize/2)
-wax[*,0:coinsize/2-1,i]=bottom
-wax[*,sz[2]-coinsize/2:sz[2]-1,i]=top
-endfor
-wax=cv-temporary(wax)
+endif
 
-return,wax
+for i=0,sz[3]-1 do begin
+    if keyword_set(verbose) then begin
+        print,'slice ',i
+        tm=systime(/sec)
+        print,'lastloop '+strtrim(tm-lasttm,1)+' seconds'
+        lasttm=tm
+    endif
+
+    cv[*,*,i]-=median(cv[*,*,i],coinsize)
+
+    cv[0:halfCoin-1,*,i]=rebin(cv[halfCoin,*,i],halfcoin,sz[2])
+    cv[sz[1]-halfCoin:sz[1]-1,*,i]=rebin(cv[sz[1]-halfCoin-1,*,i],halfCoin,sz[2])
+
+    cv[*,0:halfCoin-1,i]=rebin(cv[*,halfCoin,i],sz[1],coinsize/2)
+    cv[*,sz[2]-halfCoin:sz[2]-1,i]=rebin(cv[*,sz[2]-halfCoin-1,i],sz[1],coinsize/2)
+endfor
+
+return,cv
 
 end
