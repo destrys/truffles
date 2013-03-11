@@ -64,7 +64,7 @@ if (file_exists(datastring) eq 1 and file_exists(top + sporedir + sporeout) eq 0
 help,/mem
 help
 tm=systime(/sec)
-spore,fits,chin=chin,ra=ra,dec=dec,vels=vels,outfile=sporedir+sporeout
+spore,fits,outfile=sporedir+sporeout,/verbose
 print, (systime(/sec)-tm)/60., 'SPORE runtime (minutes)'
 
 endif

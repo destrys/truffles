@@ -11,7 +11,7 @@ pro speedtest_spore
 ; GALFA-sized cube: 512 x 512 x 2048
 
 testcube = randomn(123,512,512,100)
-
+stop
 tm=systime(/sec)
 spore,testcube,coinsize=59,/verbose
 print, (systime(/sec)-tm), 'SPORE runtime'
