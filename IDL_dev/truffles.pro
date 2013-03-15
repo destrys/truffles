@@ -16,8 +16,6 @@ spout='pig_sp'+outstring+'.sav'
 pigfitout='pig_fit'+outstring+'.sav'
 pigplotout='pig_plots'+outstring+'.ps'
 
-
-
 cvs=['cv'+outstring+'_7.5.sav',$
 'cv'+outstring+'_18.5.sav',$
 'cv'+outstring+'_7.15.sav',$
