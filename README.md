@@ -5,3 +5,9 @@
 
 ##saul2012_IDL
 This is a reworked version of truffles as used in Saul et al 2012.
+
+##IDL_dev
+This is the development version of truffles
+
+##python
+This is the python version of truffles (coming soon)
